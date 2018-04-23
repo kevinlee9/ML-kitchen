@@ -1,5 +1,5 @@
 # ML-kitchen
-useful code snippets in ML and DL
+useful code snippets for ML and DL
 
 for accelerating preprocessing, testing and visualizing
 
