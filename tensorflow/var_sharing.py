@@ -1,5 +1,5 @@
 # coding: utf-8
-
+# variable sharing
 import numpy as np
 import tensorflow as tf
 
