@@ -4,7 +4,7 @@ def training():
     save_checkpoint({
         'epoch': epoch + 1,
         'arch': args.arch,
-        'state_dict': model.state_dict(),
+        'state_dict': model.state_dict(), # need .cpu() for cuda training or not?
         'best_prec1': best_prec1,
         'optimizer' : optimizer.state_dict(),
     }, is_best)
