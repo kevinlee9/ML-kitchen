@@ -1,6 +1,7 @@
 a good example of project structure
 see [PyTorch-ENet](https://github.com/davidtvs/PyTorch-ENet) and [PyTorch-ENet: My introduction to PyTorch](http://www.davidtvs.com/pytorch-enet/) for details
 
+```
 .
 ├── data                     (modules related to datasets)
 │   ├── camvid.py
@@ -25,3 +26,4 @@ see [PyTorch-ENet](https://github.com/davidtvs/PyTorch-ENet) and [PyTorch-ENet: 
 ├── train.py                 (defines the Train class)
 ├── transforms.py            (custom image transforms)
 └── utils.py
+```
