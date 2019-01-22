@@ -28,7 +28,7 @@ True
 False
 ```
 
-### nn
+### NN
 #### Module()
 `Module.modules()`: Returns an iterator over **all** modules in the network.  
 ```python
@@ -62,7 +62,7 @@ False
 
 `Module.parameters()`: Returns an iterator over module parameters. This is typically passed to an optimizer
 
-### Sequential
+#### Sequential
 A sequential container. Modules will be added to it in the order they are passed in the constructor. Alternatively, an ordered dict of modules can also be passed in.
 ```python
 # Example of using Sequential
@@ -82,12 +82,12 @@ model = nn.Sequential(OrderedDict([
         ]))
 ```
 
-### ModuleList
+#### ModuleList
 Holds submodules in a list.
 
 ModuleList can be indexed like a regular Python list, but **modules it contains are properly registered, and will be visible by all Module methods**.
 
-### ModuleDict
+#### ModuleDict
 Holds submodules in a dict.
 ```python
 class B(nn.Module):
@@ -101,4 +101,38 @@ class B(nn.Module):
 A kind of Tensor that is to be considered a module parameter, Parameters are **`Tensor` subclasses**.  
 That have a very special property when used with `Module`s - when they’re assigned as Module attributes **they are automatically added to the list of its parameters**, and will appear e.g. in `parameters()` iterator. Assigning a Tensor doesn’t have such effect. This is because one might want to cache some temporary state, like last hidden state of the RNN, in the model
 
-#### 
+### Tensor
+#### Attributes
+`torch.dtype`, `torch.device`, and `torch.layout`
+
+### Memory Management
+Automatically grow, but not release automatically,
+`memory_cached`, `memory_allocated()`, `empty_cache()`
+```python
+import torch
+class Net(torch.nn.Module):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.conv = torch.nn.Conv2d(3, 10, kernel_size=3)
+    def forward(self, x):
+        return self.conv(x)
+        
+a = Net().cuda()
+# 700M
+print(torch.cuda.memory_cached())
+images = torch.ones(1, 3, 321, 321)
+for i in range(5):
+    a(images.cuda())
+print(torch.cuda.memory_cached())
+# 22000M
+images = torch.ones(3, 3, 321, 321)
+for i in range(5):
+    a(images.cuda())
+print(torch.cuda.memory_cached())
+# 53000M
+images = torch.ones(1, 3, 321, 321)
+for i in range(5):
+    a(images.cuda())
+print(torch.cuda.memory_cached())
+# 53000M
+```
