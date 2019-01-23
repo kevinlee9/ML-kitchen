@@ -63,6 +63,29 @@ False
 '''
 ```
 
+### Backprop
+```python
+x = torch.randn(3, requires_grad=True)
+print(x.grad)
+u = 2*x
+v = 3*x
+loss_u = torch.mean(u)
+loss_v = torch.mean(v)
+loss_v.backward()
+print(x.grad)
+loss_u.backward()
+print(x.grad)
+loss_z = loss_u + loss_v
+loss_z.backward()
+print(x.grad)
+'''
+None
+tensor([0.6667, 0.6667, 0.6667])
+tensor([1.6667, 1.6667, 1.6667])
+tensor([3.3333, 3.3333, 3.3333])
+'''
+```
+
 ### Gradient Check
 to be done
 
