@@ -27,6 +27,44 @@ True
 >>> y.requires_grad
 False
 ```
+`no_grad`: Context-manager that disabled gradient calculation, Also **functions as a decorator**.
+```python
+>>> @torch.no_grad()
+... def doubler(x):
+...     return x * 2
+>>> z = doubler(x)
+>>> z.requires_grad
+False
+```
+```python
+x = torch.randn(3, requires_grad=True)
+print(x.requires_grad)
+print((x ** 2).requires_grad)
+
+with torch.no_grad():
+    y = (x ** 2)
+    print(x.requires_grad)
+    print(y.requires_grad)
+
+print(x.requires_grad)
+print(y.requires_grad)
+z = x.detach()
+print(z.requires_grad)
+print((z ** 2).requires_grad)
+'''
+True
+True
+True
+False
+True
+False
+False
+False
+'''
+```
+
+### Gradient Check
+to be done
 
 ### NN
 #### Module()
